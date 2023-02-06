@@ -1,0 +1,11 @@
+import ppr_gnn.data.ppr.cg
+
+propagator_fn = @ppr_cg_np
+ppr_cg_np.alpha = %alpha
+ppr_cg_np.renormalize = %renormalize
+ppr_cg_np.rescale = %rescale
+ppr_cg_np.tol = %tol
+ppr_cg_np.max_iter = %max_iter
+
+tol = 1e-3
+max_iter = 1000

@@ -1,0 +1,7 @@
+include "dagnn/_constant-split.gin"
+include "data/cora.gin"
+
+l2_reg = 5e-3
+dropout_rate = 0.8
+num_propagations = 10
+hidden_size = 64

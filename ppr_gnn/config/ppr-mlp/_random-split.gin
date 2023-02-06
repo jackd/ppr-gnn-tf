@@ -1,0 +1,26 @@
+include "propagators/ppr/cg.gin"
+include "ppr-mlp/_base.gin"
+
+import ppr_gnn.data.transitive
+
+base_split = @random_mlp_split()
+
+random_mlp_split.mlp_data = %mlp_data
+random_mlp_split.num_classes = %num_classes
+random_mlp_split.train_samples_per_class = %train_samples_per_class
+random_mlp_split.validation_samples_per_class = %validation_samples_per_class
+random_mlp_split.balanced = %balanced_split
+
+mlp_data = @singleton()
+mlp_data/singleton.constructor = @propagated_mlp_data
+
+propagated_mlp_data.data = %data
+propagated_mlp_data.propagator_fn = %propagator_fn
+propagated_mlp_data.device = %preprocess_device
+propagated_mlp_data.concat_original = %concat_original
+
+preprocess_device = "/cpu:0"
+concat_original = False
+balanced_split = True
+train_samples_per_class = 20
+validation_samples_per_class = 30

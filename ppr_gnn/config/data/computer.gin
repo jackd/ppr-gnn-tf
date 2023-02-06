@@ -1,0 +1,7 @@
+import ppr_gnn.data.transitive
+
+base_data = @get_data()
+get_data.name = "amazon/computer"
+get_data.sparse_features = True
+largest_component_only = True
+num_classes = 10

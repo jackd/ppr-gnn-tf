@@ -1,0 +1,7 @@
+include "ppr-mlp/_random-split.gin"
+include "data/photo.gin"
+
+l2_reg = 2.5e-4
+alpha = 0.2
+dropout_rate = 0.5
+units = (64,)

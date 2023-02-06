@@ -1,0 +1,16 @@
+include "propagators/ppr/cg.gin"
+include "ppr-mlp/_base.gin"
+
+import ppr_gnn.data.transitive
+
+base_split = @singleton()
+
+base_split/singleton.constructor = @propagate_mlp_split
+
+propagate_mlp_split.data = %data
+propagate_mlp_split.propagator_fn = %propagator_fn
+propagate_mlp_split.device = %preprocess_device
+propagate_mlp_split.concat_original = %concat_original
+
+concat_original = False
+preprocess_device = "/cpu:0"

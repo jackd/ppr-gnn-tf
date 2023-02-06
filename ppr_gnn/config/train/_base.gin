@@ -1,0 +1,32 @@
+include "train/_classifier.gin"
+
+import gacl
+import ppr_gnn.utils.callbacks
+import ppr_gnn.utils.experiment_callbacks
+
+gacl.main.num_trials = %num_trials
+gacl.main.callbacks = %experiment_callbacks
+
+experiment_callbacks = @get_experiment_callbacks()
+
+get_experiment_callbacks.reporter = @FitReporter()
+get_experiment_callbacks.seed_setter = @KerasSeedSetter()
+get_experiment_callbacks.enable_op_determinism = %enable_op_determinism
+
+enable_op_determinism = False
+KerasSeedSetter.seed = %seed
+
+callbacks = @get_model_callbacks()
+
+get_model_callbacks.monitor = %monitor
+get_model_callbacks.mode = %mode
+get_model_callbacks.patience = %patience
+get_model_callbacks.log_dir = %log_dir
+
+log_dir = None
+mode = "min"
+monitor = "val_cross_entropy"
+
+num_trials = 10
+seed = 0
+validation_freq = 1

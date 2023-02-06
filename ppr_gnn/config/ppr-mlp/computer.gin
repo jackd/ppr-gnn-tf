@@ -1,0 +1,10 @@
+include "ppr-mlp/_random-split.gin"
+include "data/computer.gin"
+
+l2_reg = 2.5e-5
+alpha = 0.2
+dropout_rate = 0.5
+units = (64,)
+
+epochs = 3000
+patience = 300

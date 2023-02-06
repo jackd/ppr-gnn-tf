@@ -1,0 +1,38 @@
+include "ppr-mlp/_cached-split.gin"
+include "data/ogbn-papers100m.gin"
+
+alpha = 0.1
+rescale = True
+
+batch_size = 256
+
+lr = 5e-5
+input_dropout_rate = 0
+epochs = 100
+patience = 10
+
+normalization = @models.batch_norm
+batch_norm.momentum = 0.9
+batch_norm.epsilon = 1e-5
+l2_reg = 0
+tol = 1e-2
+
+cache_path = @join_star()
+cache_path/join_star.args = [
+    %data_dir,
+    "ppr-mlp",
+    "papers100m",
+]
+data_dir = @get_environ()
+data_dir/get_environ.key = "PPR_GNN_DATA"
+data_dir/get_environ.default = "~/ppr-gnn-data"
+
+concat_original = True
+
+units = None
+dropout_rate = None
+
+# same as SIGN
+monitor = "val_acc"
+mode = "max"
+features_transform = []

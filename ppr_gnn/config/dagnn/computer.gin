@@ -1,0 +1,12 @@
+include "dagnn/_random-split.gin"
+include "data/computer.gin"
+
+largest_component_only = True
+
+l2_reg = 2.5e-5
+dropout_rate = 0.5
+num_propagations = 5
+hidden_size = 64
+
+epochs = 3000
+patience = 300

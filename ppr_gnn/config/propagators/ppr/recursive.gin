@@ -1,0 +1,10 @@
+import ppr_gnn.data.ppr.recursive
+
+propagator_fn = @ppr_recursive
+
+ppr_recursive.renormalize = %renormalize
+ppr_recursive.rescale = %rescale
+ppr_recursive.alpha = %alpha
+ppr_recursive.k = %k
+
+k = 32

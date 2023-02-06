@@ -1,0 +1,5 @@
+include "data/bojchevski/_base.gin"
+
+get_data.name = "bojchevski/reddit"
+get_data.sparse_features = False
+num_classes = 41

@@ -1,0 +1,7 @@
+include "mlp-ppr/gcn2/_base.gin"
+include "data/citeseer.gin"
+
+units = (256,)
+dropout_rate = 0.8
+l2_reg = 2.5e-4
+alpha = 0.1

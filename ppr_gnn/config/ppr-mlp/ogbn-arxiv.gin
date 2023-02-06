@@ -1,0 +1,24 @@
+include "ppr-mlp/_constant-split.gin"
+include "data/ogbn-arxiv.gin"
+
+units = (256,)
+dropout_rate = 0.2
+input_dropout_rate = 0
+l2_reg = 0
+alpha = 0.0625  # 1 / 16
+lr = 5e-3
+features_transform = []
+
+epochs = 1000
+patience = 1001  # no early stopping - but still restoring best weights
+
+tol = 1e-2
+
+features_transform = None
+normalization = @batch_norm
+# pytorch defaults below
+batch_norm.momentum = 0.9
+batch_norm.epsilon = 1e-5
+
+monitor = "val_acc"
+mode = "max"

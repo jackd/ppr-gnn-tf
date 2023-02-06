@@ -1,0 +1,7 @@
+include "dagnn/_base.gin"
+import gin
+import ppr_gnn.data.transitive
+
+split = @gin.singleton()
+
+split/singleton.constructor = @basic_gnn_split

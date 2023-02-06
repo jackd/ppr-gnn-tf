@@ -1,0 +1,7 @@
+include "dagnn/_constant-split.gin"
+include "data/citeseer.gin"
+
+l2_reg = 0.01
+dropout_rate = 0.5
+num_propagations = 10
+hidden_size = 64

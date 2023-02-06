@@ -1,0 +1,55 @@
+include "propagators/ppr/cg-np.gin"
+
+import ppr_gnn.data.transitive
+import ppr_gnn.data.transforms
+import ppr_gnn.models.mlp
+import ppr_gnn.utils.callbacks
+import ppr_gnn.utils.keras_configurables
+
+data = @with_random_split_ids()
+
+with_random_split_ids.data = %prop_data
+
+prop_data = @singleton()
+prop_data/singleton.constructor = @to_propagate_mlp_data
+
+to_propagate_mlp_data.data = %transformed_data
+to_propagate_mlp_data.propagator_fn = %propagator_fn
+
+with_random_split_ids.balanced = %balanced_split
+with_random_split_ids.train_samples_per_class = %train_samples_per_class
+with_random_split_ids.validation_samples_per_class = %validation_samples_per_class
+
+transformed_data = @transform_transitive_data()
+
+transform_transitive_data.data = %base_data
+transform_transitive_data.largest_component_only = %largest_component_only
+transform_transitive_data.features_transform = %features_transform
+transform_transitive_data.adjacency_transform = %adjacency_transform
+
+balanced_split = True
+train_samples_per_class = 20
+validation_samples_per_class = 30
+
+
+model_fn = @mlp
+mlp.output_units = %num_classes
+mlp.hidden_units = %units
+mlp.dropout_rate = %dropout_rate
+mlp.input_dropout_rate = %input_dropout_rate
+mlp.l2_reg = %l2_reg
+mlp.normalization = %normalization
+
+adjacency_transform = []
+features_transform = []
+renormalize = True
+rescale = True
+patience = 200
+epochs = 1500
+largest_component_only = False
+input_dropout_rate = None
+normalization = None
+batch_size = -1  # no sub-batching
+
+# all sparse-dense matrix products done via numpy propagator_fn
+enable_op_determinism = True

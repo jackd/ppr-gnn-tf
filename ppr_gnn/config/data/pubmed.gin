@@ -1,0 +1,5 @@
+import ppr_gnn.data.transitive
+
+base_data = @get_data()
+get_data.name = "pubmed"
+num_classes = 3

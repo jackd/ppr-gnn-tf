@@ -1,0 +1,4 @@
+include "data/bojchevski/_base.gin"
+
+get_data.name = "bojchevski/mag-coarse"
+num_classes = 8

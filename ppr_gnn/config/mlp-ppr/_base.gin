@@ -1,0 +1,42 @@
+include "propagators/ppr/cg.gin"
+
+import ppr_gnn.data.transitive
+import ppr_gnn.data.transforms
+import ppr_gnn.models.mlp_ppr
+import ppr_gnn.utils.callbacks
+import ppr_gnn.utils.keras_configurables
+
+transform_transitive_data.data = %base_data
+transform_transitive_data.largest_component_only = %largest_component_only
+transform_transitive_data.features_transform = %features_transform
+transform_transitive_data.adjacency_transform = %adjacency_transform
+
+mlp_propagate_split.data = %data
+mlp_propagate_split.propagator_fn = %propagator_fn
+mlp_propagate_split.preprocess_train = %preprocess_train
+mlp_propagate_split.preprocess_validation = %preprocess_validation
+mlp_propagate_split.preprocess_test = %preprocess_test
+mlp_propagate_split.device = %preprocess_device
+
+preprocess_train = True
+preprocess_validation = %preprocess_train
+preprocess_test = False
+
+features_transform = [@row_normalize]
+adjacency_transform = []
+
+renormalize = True
+model_fn = @mlp_propagate
+mlp_propagate.num_classes = %num_classes
+mlp_propagate.hidden_units = %units
+mlp_propagate.dropout_rate = %dropout_rate
+mlp_propagate.input_dropout_rate = %input_dropout_rate
+mlp_propagate.l2_reg = %l2_reg
+mlp_propagate.normalization = %normalization
+
+patience = 200
+epochs = 1500
+largest_component_only = False
+input_dropout_rate = None
+normalization = None
+preprocess_device = "/cpu:0"

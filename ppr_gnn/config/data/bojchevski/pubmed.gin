@@ -1,0 +1,4 @@
+include "data/bojchevski/_base.gin"
+
+get_data.name = "bojchevski/pubmed"
+num_classes = 3

@@ -1,0 +1,5 @@
+import ppr_gnn.data.transitive
+
+base_data = @get_data()
+get_data.name = "ogbn-arxiv"
+num_classes = 40

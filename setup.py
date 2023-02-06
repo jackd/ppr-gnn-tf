@@ -11,15 +11,17 @@ with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as fp:
     install_requires = fp.read().split("\n")
 
 setup(
-    name="python_pkg",  # TODO
-    description="python package template",  # TODO
-    url="https://github.com/jackd/python-pkg",  # TODO
+    name="ppr-gnn-tf",
+    description="Personalized PageRank Graph Neural Network Tensorflow Implementation",
+    url="https://github.com/jackd/ppr-gnn-tf",
     author="Dominic Jack",
     author_email="thedomjack@gmail.com",
     license="Apache 2.0",
     packages=find_packages(),
     install_requires=install_requires,
     zip_safe=True,
-    python_requires=">=3.6",
+    python_requires=">=3.7.15",
     version=".".join([_MAJOR_VERSION, _MINOR_VERSION, _PATCH_VERSION]),
+    package_data={"": ["*.gin"]},
+    include_package_data=True,
 )

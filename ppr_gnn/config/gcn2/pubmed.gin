@@ -1,0 +1,8 @@
+include "gcn2/_base.gin"
+include "data/pubmed.gin"
+
+num_hidden_layers = 16
+filters = 256
+dropout_rate = 0.5
+lam = 0.4
+conv_l2_reg = 2.5e-4

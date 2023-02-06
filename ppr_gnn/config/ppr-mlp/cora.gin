@@ -1,0 +1,7 @@
+include "ppr-mlp/_constant-split.gin"
+include "data/cora.gin"
+
+units = (64,)
+dropout_rate = 0.8
+l2_reg = 2.5e-3
+alpha = 0.1

@@ -1,0 +1,42 @@
+import ppr_gnn.models.gcn2
+import ppr_gnn.data.transitive
+import ppr_gnn.data.transforms
+
+split = @gin.singleton()
+
+split/singleton.constructor = @basic_gnn_split
+basic_gnn_split.data = %transformed_data
+basic_gnn_split.renormalize = True
+
+transformed_data = @transform_transitive_data()
+transform_transitive_data.data = %base_data
+transform_transitive_data.largest_component_only = %largest_component_only
+transform_transitive_data.features_transform = %features_transform
+
+model_fn = @gcn2
+gcn2.num_classes = %num_classes
+gcn2.filters = %filters
+gcn2.num_hidden_layers = %num_hidden_layers
+gcn2.dropout_rate = %dropout_rate
+gcn2.conv_l2_reg = %conv_l2_reg
+gcn2.dense_l2_reg = %dense_l2_reg
+gcn2.lam = %lam
+gcn2.alpha = %alpha
+gcn2.variant = %variant
+gcn2.static = %static
+
+features_transform = @row_normalize
+
+input_dropout_rate = None
+static = False
+lam = 0.5
+alpha = 0.1
+variant = False
+conv_l2_reg = 5e-3
+dense_l2_reg = 2.5e-4
+
+largest_component_only = False
+lr = 1e-2
+epochs = 1000
+patience = 100
+reduction = "sum"

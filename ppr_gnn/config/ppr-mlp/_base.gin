@@ -1,0 +1,39 @@
+import ppr_gnn.data.transitive
+import ppr_gnn.data.transforms
+import ppr_gnn.models.mlp
+import ppr_gnn.utils.callbacks
+import ppr_gnn.utils.keras_configurables
+
+data = @transform_transitive_data()
+
+split = @sub_batched_split()
+sub_batched_split.split = %base_split
+sub_batched_split.batch_size = %batch_size
+
+transform_transitive_data.data = %base_data
+transform_transitive_data.largest_component_only = %largest_component_only
+transform_transitive_data.features_transform = %features_transform
+transform_transitive_data.adjacency_transform = %adjacency_transform
+
+features_transform = [@row_normalize]
+adjacency_transform = []
+
+model_fn = @mlp
+mlp.output_units = %num_classes
+mlp.hidden_units = %units
+mlp.dropout_rate = %dropout_rate
+mlp.input_dropout_rate = %input_dropout_rate
+mlp.l2_reg = %l2_reg
+mlp.normalization = %normalization
+
+renormalize = True
+rescale = True
+patience = 200
+epochs = 1500
+largest_component_only = False
+input_dropout_rate = None
+normalization = None
+batch_size = -1  # no sub-batching
+
+# all sparse-dense matrix products on cpu during preprocessing
+enable_op_determinism = True

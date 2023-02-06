@@ -1,0 +1,7 @@
+include "gcn2/_base.gin"
+include "data/citeseer.gin"
+
+num_hidden_layers = 32
+filters = 256
+dropout_rate = 0.7
+lam = 0.6

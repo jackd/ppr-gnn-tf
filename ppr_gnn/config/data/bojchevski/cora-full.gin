@@ -1,0 +1,4 @@
+include "data/bojchevski/_base.gin"
+
+get_data.name = "bojchevski/cora-full"
+num_classes = 70

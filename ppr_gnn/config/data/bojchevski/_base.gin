@@ -1,0 +1,8 @@
+import ppr_gnn.data.transitive
+base_data = @get_data()
+
+train_samples_per_class = 20
+validation_samples_per_class = 200
+balanced_split = False
+
+largest_component_only = True

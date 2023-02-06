@@ -1,0 +1,9 @@
+include "ppr-mlp/_random-split-v2.gin"
+include "ppr-mlp/bojchevski/_base.gin"
+include "data/bojchevski/mag-coarse.gin"
+
+tol = 1e-2
+max_iter = 100
+
+skip_validation_during_training = True
+features_transform = []

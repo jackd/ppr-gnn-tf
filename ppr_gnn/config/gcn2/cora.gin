@@ -1,0 +1,7 @@
+include "gcn2/_base.gin"
+include "data/cora.gin"
+
+num_hidden_layers = 64
+filters = 64
+dropout_rate = 0.5
+lam = 0.5

@@ -1,0 +1,14 @@
+include "dagnn/_base.gin"
+import gin
+import ppr_gnn.data.transitive
+
+transformed_data = @gin.singleton()
+transformed_data/singleton.constructor = @transform_transitive_data
+
+split = @basic_gnn_split()
+basic_gnn_split.data = @with_random_split_ids()
+
+with_random_split_ids.data = %transformed_data
+with_random_split_ids.train_samples_per_class = 20
+with_random_split_ids.validation_samples_per_class = 30
+with_random_split_ids.balanced = True

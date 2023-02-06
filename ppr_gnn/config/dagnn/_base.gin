@@ -1,0 +1,30 @@
+import ppr_gnn.models.dagnn
+import ppr_gnn.data.transitive
+import ppr_gnn.data.transforms
+
+basic_gnn_split.data = %transformed_data
+basic_gnn_split.renormalize = True
+
+transformed_data = @transform_transitive_data()
+transform_transitive_data.data = %base_data
+transform_transitive_data.largest_component_only = %largest_component_only
+transform_transitive_data.features_transform = %features_transform
+
+model_fn = @dagnn
+dagnn.num_classes = %num_classes
+dagnn.hidden_size = %hidden_size
+dagnn.input_dropout_rate = %input_dropout_rate
+dagnn.dropout_rate = %dropout_rate
+dagnn.num_propagations = %num_propagations
+dagnn.l2_reg = %l2_reg
+dagnn.static = %static
+features_transform = @row_normalize
+
+largest_component_only = False
+input_dropout_rate = None
+static = False
+lr = 1e-2
+hidden_size = 64
+epochs = 1000
+patience = 100
+reduction = "sum"

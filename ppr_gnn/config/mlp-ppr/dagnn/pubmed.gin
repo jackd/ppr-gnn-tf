@@ -1,0 +1,8 @@
+include "mlp-ppr/_constant-split.gin"
+include "mlp-ppr/dagnn/_base.gin"
+include "data/pubmed.gin"
+
+units = (64,)
+dropout_rate = 0.8
+l2_reg = 2.5e-3
+alpha = 0.05

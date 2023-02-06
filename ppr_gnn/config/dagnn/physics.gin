@@ -1,0 +1,7 @@
+include "dagnn/_random-split.gin"
+include "data/physics.gin"
+
+l2_reg = 0
+dropout_rate = 0.8
+num_propagations = 5
+hidden_size = 64

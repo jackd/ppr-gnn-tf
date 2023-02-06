@@ -1,0 +1,11 @@
+include "dagnn/_constant-split.gin"
+include "data/pubmed.gin"
+
+l2_reg = 2.5e-3
+dropout_rate = 0.8
+num_propagations = 20
+hidden_size = 64
+
+
+
+

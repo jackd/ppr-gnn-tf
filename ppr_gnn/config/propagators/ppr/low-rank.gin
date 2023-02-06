@@ -1,0 +1,10 @@
+import ppr_gnn.data.ppr.low_rank
+
+propagator_fn = @ppr_low_rank
+
+ppr_low_rank.renormalize = %renormalize
+ppr_low_rank.rescale = %rescale
+ppr_low_rank.alpha = %alpha
+ppr_low_rank.rank = %rank
+
+rank = 32

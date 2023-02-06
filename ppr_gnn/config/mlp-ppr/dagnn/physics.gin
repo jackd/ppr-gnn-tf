@@ -1,0 +1,8 @@
+include "mlp-ppr/_random-split.gin"
+include "mlp-ppr/dagnn/_base.gin"
+include "data/physics.gin"
+
+l2_reg = 0
+alpha = 0.2
+dropout_rate = 0.8
+units = (64,)

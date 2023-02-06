@@ -1,0 +1,16 @@
+include "dagnn/_constant-split.gin"
+include "data/ogbn-arxiv.gin"
+
+features_transform = None
+
+input_dropout_rate = 0
+dropout_rate = 0.2
+l2_reg = 0
+num_propagations = 16
+hidden_size = 256
+lr = 5e-3
+
+epochs = 1000
+patience = 1000
+monitor = "val_acc"
+mode = "max"

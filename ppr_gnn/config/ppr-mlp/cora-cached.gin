@@ -1,0 +1,18 @@
+include "ppr-mlp/_cached-split.gin"
+include "data/cora.gin"
+
+units = (64,)
+dropout_rate = 0.8
+l2_reg = 2.5e-3
+alpha = 0.1
+
+cache_path = @join_star()
+cache_path/join_star.args = [
+    %data_dir,
+    'ppr-mlp',
+    'cora',
+]
+data_dir = @get_environ()
+data_dir/get_environ.key = "PPR_GNN_DATA"
+data_dir/get_environ.default = "~/ppr-gnn-data"
+

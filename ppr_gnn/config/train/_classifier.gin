@@ -1,0 +1,19 @@
+import ppr_gnn.utils.keras_configurables
+
+optimizer = @tf.keras.optimizers.Adam()
+Adam.learning_rate = %lr
+loss = @tf.keras.losses.SparseCategoricalCrossentropy()
+weighted_metrics = [
+    @tf.keras.metrics.SparseCategoricalCrossentropy(),
+    @tf.keras.metrics.SparseCategoricalAccuracy(),
+]
+
+tf.keras.losses.SparseCategoricalCrossentropy.from_logits = True
+tf.keras.losses.SparseCategoricalCrossentropy.reduction = %reduction
+
+tf.keras.metrics.SparseCategoricalCrossentropy.from_logits = True
+tf.keras.metrics.SparseCategoricalCrossentropy.name = 'cross_entropy'
+tf.keras.metrics.SparseCategoricalAccuracy.name = 'acc'
+
+lr = 1e-2
+reduction = "sum_over_batch_size"

@@ -1,0 +1,19 @@
+include "train/_classifier.gin"
+
+import gacl
+import ppr_gnn.utils.experiment_callbacks
+import ppr_gnn.utils.train
+
+gacl.main.fun = @benchmark_model_timings
+gacl.main.callbacks = [@KerasSeedSetter()]
+gacl.main.num_trials = %num_trials
+
+benchmark_model_timings.split = %split
+benchmark_model_timings.model_fn = %model_fn
+benchmark_model_timings.optimizer = %optimizer
+benchmark_model_timings.loss = %loss
+benchmark_model_timings.metrics = None
+benchmark_model_timings.weighted_metrics = %weighted_metrics
+
+KerasSeedSetter.seed = 0
+num_trials = 1

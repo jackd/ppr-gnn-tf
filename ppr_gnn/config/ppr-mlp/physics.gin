@@ -1,0 +1,7 @@
+include "ppr-mlp/_random-split.gin"
+include "data/physics.gin"
+
+l2_reg = 0
+alpha = 0.2
+dropout_rate = 0.8
+units = (64,)

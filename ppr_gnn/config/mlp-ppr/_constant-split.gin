@@ -1,0 +1,8 @@
+include "mlp-ppr/_base.gin"
+
+import ppr_gnn.data.transitive
+
+split = @singleton()
+split/singleton.constructor = @mlp_propagate_split
+
+mlp_propagate_split.data = @transform_transitive_data()

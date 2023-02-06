@@ -1,0 +1,18 @@
+include "propagators/ppr/cg-np.gin"
+include "ppr-mlp/_base.gin"
+
+import ppr_gnn.data.transitive
+
+base_split = @singleton()
+
+base_split/singleton.constructor = @cached_split
+
+cached_split.path = %cache_path
+cached_split.split_fn = @propagate_mlp_split_np
+
+propagate_mlp_split_np.data = %data
+propagate_mlp_split_np.propagator_fn = %propagator_fn
+propagate_mlp_split_np.concat_original = %concat_original
+concat_original = False
+
+batch_size = -1

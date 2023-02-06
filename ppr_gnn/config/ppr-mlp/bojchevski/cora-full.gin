@@ -1,0 +1,9 @@
+include "ppr-mlp/_random-split.gin"
+include "ppr-mlp/bojchevski/_base.gin"
+include "data/bojchevski/cora-full.gin"
+
+import ppr_gnn.data.transitive
+
+split = @sub_batched_split()
+sub_batched_split.split = %base_split
+sub_batched_split.batch_size = %batch_size

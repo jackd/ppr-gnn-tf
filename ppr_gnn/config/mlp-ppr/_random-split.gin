@@ -1,0 +1,16 @@
+include "mlp-ppr/_base.gin"
+
+import ppr_gnn.data.transitive
+
+data = @with_random_split_ids()
+
+with_random_split_ids.data = @transform_transitive_data()
+with_random_split_ids.train_samples_per_class = %train_samples_per_class
+with_random_split_ids.validation_samples_per_class = %validation_samples_per_class
+with_random_split_ids.balanced = %balanced_split
+
+split = @mlp_propagate_split()
+
+balanced_split = True
+train_samples_per_class = 20
+validation_samples_per_class = 30

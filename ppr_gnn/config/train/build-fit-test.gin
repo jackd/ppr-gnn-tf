@@ -1,0 +1,16 @@
+include "train/_base.gin"
+
+import gacl
+import ppr_gnn.utils.train
+
+gacl.main.fun = @build_fit_test
+
+build_fit_test.split = %split
+build_fit_test.model_fn = %model_fn
+build_fit_test.optimizer = %optimizer
+build_fit_test.loss = %loss
+build_fit_test.metrics = None
+build_fit_test.weighted_metrics = %weighted_metrics
+build_fit_test.callbacks = %callbacks
+build_fit_test.epochs = %epochs
+build_fit_test.validation_freq = %validation_freq

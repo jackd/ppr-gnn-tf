@@ -1,0 +1,21 @@
+include "train/_base.gin"
+
+import gacl
+import ppr_gnn.utils.train
+
+gacl.main.fun = @build_fit_test_propagate_mlp_v2
+
+build_fit_test_propagate_mlp_v2.data = %data
+build_fit_test_propagate_mlp_v2.model_fn = %model_fn
+build_fit_test_propagate_mlp_v2.optimizer = %optimizer
+build_fit_test_propagate_mlp_v2.loss = %loss
+build_fit_test_propagate_mlp_v2.metrics = None
+build_fit_test_propagate_mlp_v2.weighted_metrics = %weighted_metrics
+build_fit_test_propagate_mlp_v2.callbacks = %callbacks
+build_fit_test_propagate_mlp_v2.epochs = %epochs
+build_fit_test_propagate_mlp_v2.validation_freq = %validation_freq
+build_fit_test_propagate_mlp_v2.skip_validation_during_training = %skip_validation_during_training
+build_fit_test_propagate_mlp_v2.batch_size = %batch_size
+
+skip_validation_during_training = False
+batch_size = -1

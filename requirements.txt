@@ -1,0 +1,9 @@
+gin-config
+scipy
+dgl
+wget
+ogb
+tqdm
+pandas
+gacl@ git+git://github.com/jackd/gacl.git@v1.0.0#egg=gacl
+tflo@ git+git://github.com/jackd/tflo.git@v1.0.0#egg=tflo

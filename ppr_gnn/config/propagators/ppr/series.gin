@@ -1,0 +1,10 @@
+import ppr_gnn.data.ppr.series
+
+propagator_fn = @ppr_maclaurin_series
+
+ppr_maclaurin_series.renormalize = %renormalize
+ppr_maclaurin_series.rescale = %rescale
+ppr_maclaurin_series.alpha = %alpha
+ppr_maclaurin_series.k = %k
+
+k = 32

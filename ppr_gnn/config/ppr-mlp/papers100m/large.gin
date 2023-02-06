@@ -1,0 +1,4 @@
+include "ppr-mlp/papers100m/base.gin"
+
+units = (2048, 2048, 2048)
+dropout_rate = 0.5

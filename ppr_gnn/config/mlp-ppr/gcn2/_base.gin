@@ -1,0 +1,6 @@
+include "mlp-ppr/_constant-split.gin"
+
+mlp_propagate.version = "gcn2"
+rescale = False
+renormalize = True
+epochs = 3000

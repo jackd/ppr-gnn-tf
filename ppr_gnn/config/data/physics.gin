@@ -1,0 +1,6 @@
+import ppr_gnn.data.transitive
+
+base_data = @get_data()
+get_data.name = "coauthor/physics"
+get_data.sparse_features = True
+num_classes = 5

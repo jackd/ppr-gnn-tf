@@ -1,0 +1,10 @@
+import ppr_gnn.data.papers100m
+
+get_data.name = "ogbn-papers100m"
+base_data = @get_data()
+get_data.make_symmetric = True
+num_classes = 172
+
+features_transform = None
+renormalize = False
+rescale = True

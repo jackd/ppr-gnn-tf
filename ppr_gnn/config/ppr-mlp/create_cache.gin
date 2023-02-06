@@ -1,0 +1,14 @@
+include "ppr-mlp/_cached-split.gin"
+
+import gacl
+import gacl.callbacks
+import ppr_gnn.utils.experiment_callbacks
+import ppr_gnn.utils.keras_configurables
+import ppr_gnn.data.transitive
+
+gacl.main.fun = @cached_split
+gacl.main.num_trials = 1
+gacl.main.callbacks = [@GinConfigLogger(), @KerasSeedSetter()]
+
+cached_split.overwrite = %overwrite
+overwrite = True
