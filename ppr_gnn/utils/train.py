@@ -132,6 +132,78 @@ def benchmark_model_timings(
 
 
 @register
+def benchmark_memory_usage(
+    split: DataSplit,
+    model_fn: tp.Callable[[tp.Any], tf.keras.Model],
+    optimizer: tf.keras.optimizers.Optimizer,
+    loss: tf.keras.losses.Loss,
+    metrics=None,
+    weighted_metrics=None,
+    warmup_steps: int = 10,
+    benchmark_steps: int = 100,
+    prefetch_buffer: int = tf.data.AUTOTUNE,
+    print_fn: tp.Callable[[str], None] = print,
+    show_progress: bool = True,
+):
+    train_data, validation_data, test_data = split
+
+    input_spec = train_data.element_spec[0]
+    # make leading dimensions None. This works around issues with metrics
+    input_spec = tf.nest.map_structure(
+        lambda spec: tf.TensorSpec(shape=(None, *spec.shape[1:]), dtype=spec.dtype),
+        input_spec,
+    )
+    model: tf.keras.Model = model_fn(input_spec)
+    model.compile(
+        optimizer=optimizer,
+        loss=loss,
+        metrics=metrics,
+        weighted_metrics=weighted_metrics,
+    )
+
+    def benchmark(fn: tp.Callable, desc: str):
+        it = (
+            tqdm.trange(warmup_steps, desc=f"Warming up {desc}...")
+            if show_progress
+            else range(warmup_steps)
+        )
+        for _ in it:
+            fn()
+
+        peaks = []
+        it = (
+            tqdm.trange(warmup_steps, desc=f"Benchmarking {desc}...")
+            if show_progress
+            else range(benchmark_steps)
+        )
+        for _ in it:
+            tf.config.experimental.reset_memory_stats("GPU:0")
+            fn()
+            stats = tf.config.experimental.get_memory_info("GPU:0")
+            peaks.append(stats["peak"])
+        peaks = np.array(peaks) / 1024**2  # M
+        print_fn(
+            f"Completed {benchmark_steps} {desc}s\n"
+            f"{np.mean(peaks)}  ± {np.std(peaks)}M\n"
+            f"min: {np.min(peaks)}M, \n"
+            f"max: {np.max(peaks)}M"
+        )
+        return peaks
+
+    step = model.make_train_function()
+    data_iter = iter(train_data.repeat().prefetch(prefetch_buffer))
+    benchmark(lambda: step(data_iter), "train step")
+
+    step = model.make_test_function()
+    if validation_data is not None:
+        data_iter = iter(validation_data.repeat().prefetch(prefetch_buffer))
+        benchmark(lambda: step(data_iter), "validation_step")
+    if test_data is not None:
+        data_iter = iter(test_data.repeat().prefetch(prefetch_buffer))
+        benchmark(lambda: step(data_iter), "test_step")
+
+
+@register
 def build_fit_test(
     split: DataSplit,
     model_fn: tp.Callable[[tp.Any], tf.keras.Model],

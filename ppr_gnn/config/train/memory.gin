@@ -1,0 +1,19 @@
+include "train/_classifier.gin"
+
+import gacl
+import ppr_gnn.utils.experiment_callbacks
+import ppr_gnn.utils.train
+
+gacl.main.fun = @benchmark_memory_usage
+gacl.main.callbacks = [@KerasSeedSetter()]
+gacl.main.num_trials = %num_trials
+
+benchmark_memory_usage.split = %split
+benchmark_memory_usage.model_fn = %model_fn
+benchmark_memory_usage.optimizer = %optimizer
+benchmark_memory_usage.loss = %loss
+benchmark_memory_usage.metrics = None
+benchmark_memory_usage.weighted_metrics = %weighted_metrics
+
+KerasSeedSetter.seed = 0
+num_trials = 1

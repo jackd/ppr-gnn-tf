@@ -2,9 +2,23 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-This repository contains simplified/cleaned up tensorflow implementation of the work done for "It's PageRank All The Way Down: Simplifying Deep Graph Networks" to be presented as [SDM23](https://www.siam.org/conferences/cm/conference/sdm23).
+This repository contains simplified/cleaned up tensorflow implementation of the work done for [It's PageRank All The Way Down: Simplifying Deep Graph Networks](https://epubs.siam.org/doi/abs/10.1137/1.9781611977653.ch20).
 
-We also include implementations of DAGNN and GCN2 (along with their static counterparts, SS-DAGNN and SS-GCN2 respectively).
+```bibtex
+@inbook{doi:10.1137/1.9781611977653.ch20,
+author = {Dominic Jack and Sarah Erfani and Jeffrey Chan and Sutharshan Rajasegarar and Christopher Leckie},
+title = {It's PageRank All The Way Down: Simplifying Deep Graph Networks},
+booktitle = {Proceedings of the 2023 SIAM International Conference on Data Mining (SDM)},
+chapter = {},
+pages = {172-180},
+doi = {10.1137/1.9781611977653.ch20},
+URL = {https://epubs.siam.org/doi/abs/10.1137/1.9781611977653.ch20},
+eprint = {https://epubs.siam.org/doi/pdf/10.1137/1.9781611977653.ch20},
+    abstract = { Abstract First developed to rank website relevance, PageRank has become ubiquitous in many areas of graph machine learning including deep learning. We demonstrate that a number of recently published deep graph neural networks are qualitatively equivalent to shallow networks utilizing Personalized PageRank (PPR), and that their performance improvements over existing PPR implementations can be fully explained by hyperparameter choices. We also show that PPR with these hyperparameters outperform more recently published sophisticated variations of PPR-based graph neural networks, and present efficient implementations that reduce training times and memory requirements while improving scalability. }
+}
+```
+
+We also include tensorflow implementations of DAGNN and GCN2 (along with their static counterparts, SS-DAGNN and SS-GCN2 respectively).
 
 See [this meta-repository](https://github.com/jackd/ppr-gnn-sdm23) for other sources.
 
@@ -565,6 +579,33 @@ tol = 1e-0
 # Warming up test_data predict step...: 100%|█████| 10/10 [00:00<00:00, 30.57it/s]
 # Benchmarking test_data predict step...: 100%|█| 100/100 [00:01<00:00, 67.58it/s]
 # Completed 100 test_data predict steps in 1479986μs, 14800μs / step
+```
+
+You can do the same for memory utilization with `train/memory.gin`, though this isn't included in Figure 6.
+
+```bash
+python -m ppr_gnn train/memory.gin mlp-ppr/dagnn/pubmed.gin --bindings='
+preprocess_train = False
+tol = 1e-0
+'
+# Warming up train step...: 100%|█████████████████| 10/10 [00:03<00:00,  3.02it/s]
+# Benchmarking train step...: 100%|███████████████| 10/10 [00:00<00:00, 88.29it/s]
+# Completed 100 train steps
+# 95.3678955078125  ± 12.686035673290425M
+# min: 88.69287109375M,
+# max: 120.723388671875M
+# Warming up validation_step...: 100%|████████████| 10/10 [00:00<00:00, 35.77it/s]
+# Benchmarking validation_step...: 100%|██████████| 10/10 [00:00<00:00, 96.05it/s]
+# Completed 100 validation_steps
+# 46.448876953125  ± 0.728625048072121M
+# min: 45.1796875M,
+# max: 47.021240234375M
+# Warming up test_step...: 100%|██████████████████| 10/10 [00:00<00:00, 33.81it/s]
+# Benchmarking test_step...: 100%|████████████████| 10/10 [00:00<00:00, 86.89it/s]
+# Completed 100 test_steps
+# 46.2974853515625  ± 0.537554494734537M
+# min: 45.201171875M,
+# max: 46.928955078125M
 ```
 
 #### CG

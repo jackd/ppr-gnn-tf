@@ -82,7 +82,9 @@ class DynamicGraphConvolution(tf.keras.layers.Layer):
         hi = _matmul(simple_prop, features)
 
         if self.variant:
-            support = tf.concat([hi, features0], axis=1)
+            support = tf.concat( # pylint:disable=unexpected-keyword-arg,no-value-for-parameter
+                [hi, features0], axis=1
+            )
             r = (1 - self.alpha) * hi + self.alpha * features
         else:
             support = (1 - self.alpha) * hi + self.alpha * features0
